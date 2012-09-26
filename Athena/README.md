@@ -15,3 +15,8 @@ cstrike.php, line 14
 ```
 
 Replace both variables with the name and location you wish to use. Sourcemod chroot's to your cstrike folder, so you'll have to change the path relative to said folder.
+
+Athena was created by Sam Edley and Kirk Elifson.
+
+Sam: saigon (at) parodybit.net
+Kirk: kelifson (at) parodybit.net
