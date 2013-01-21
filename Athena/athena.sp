@@ -18,7 +18,7 @@ public Plugin:myinfo =
 public OnPluginStart()
 {
 	HookEvent("round_end", Event_Round_End);
-	HookEvent("player_death", Event_PlayerDeath, EventHookMode_Pre);
+	HookEvent("player_death", Event_PlayerDeath);
 }
 
 public updateScores(counterscore,terrscore){
