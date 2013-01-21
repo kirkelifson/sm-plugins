@@ -17,10 +17,8 @@ public Plugin:myinfo =
 
 public OnPluginStart()
 {
-	PrintToServer("%s Plugin loaded",debugstring);
 	HookEvent("round_end", Event_Round_End);
 	HookEvent("player_death", Event_PlayerDeath, EventHookMode_Pre);
-	PrintToServer("%s Round End + Player Death Hooked",debugstring);
 }
 
 public updateScores(counterscore,terrscore){
@@ -29,10 +27,10 @@ public updateScores(counterscore,terrscore){
 
 	// Temporary string buffer used to format log strings
 	new String:temp[255]="";
-	
+
 	// Open match.log and erase contents
 	new Handle:fout=OpenFile(filename,"w");
-	
+
 	new clientdeaths,clientfrags;
 	new String:clientname[50];
 
@@ -43,11 +41,11 @@ public updateScores(counterscore,terrscore){
 	for(new i=1;i<=GetClientCount()+1;i++)
 	{
 		// Print each player + score
-		if (IsClientInGame(i)){											
+		if (IsClientInGame(i)){
 			GetClientName(i,clientname,49);
 			clientdeaths = GetClientDeaths(i);
 			clientfrags  = GetClientFrags(i);
-			
+
 			if(GetClientTeam(i)==3)
 			{
 				Format(temp, sizeof(temp), "%s,%d,%d\n",clientname,clientfrags,clientdeaths);
@@ -67,7 +65,7 @@ public updateScores(counterscore,terrscore){
 			GetClientName(i,clientname,49);
 			clientdeaths = GetClientDeaths(i);
 			clientfrags  = GetClientFrags(i);
-			
+
 			if(GetClientTeam(i)==2)
 			{
 				Format(temp, sizeof(temp), "%s,%d,%d\n",clientname,clientfrags,clientdeaths);
