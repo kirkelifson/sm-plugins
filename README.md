@@ -8,3 +8,7 @@ A compilation of SourceMod plugins I have written or colloborated on.
 
 #DefuseTalk
 - Relays various messages at the CT defusing the bomb depending on remaining time
+
+#ConnectMessage
+- Very simple script announcing new players connecting
+- Utilizes GeoIP database to include country of origin
