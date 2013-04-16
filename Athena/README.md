@@ -21,3 +21,9 @@ Athena was created by Sam Edley and Kirk Elifson.
 Sam: sedly@unallocatedmemory.net
 
 Kirk: kirk@parodybit.net
+
+# todo
+- Convert output to json
+- incorporate ajax for content updating
+- use nosql to keep the data stored for offline usage
+- use steam web api to grab profile data for players in server
