@@ -1,22 +1,23 @@
+* {
+    font-size: 2em;
+}
+
 body {
-	background-color: #2f3336;
-	color: #778899;
-	font-size: 2em;
-	font-family: verdana;
-	text-align: center;
+    background-color: #2f3336;
+    color: #778899;
+    font-family: verdana;
+    text-align: center;
 }
 
 td {
-	padding: 15px;
-	padding-bottom: 0px;
+    padding: 15px;
+    padding-bottom: 0px;
 }
 
 #ct_score {
-	color: #3de354;
-	font-size: 2em;
+    color: #3de354;
 }
 
 #t_score {
-	color: #e3543d;
-	font-size: 2em;
+    color: #e3543d;
 }
