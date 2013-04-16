@@ -6,12 +6,11 @@ body {
     background-color: #2f3336;
     color: #778899;
     font-family: verdana;
-    text-align: center;
 }
 
 td {
-    padding: 15px;
-    padding-bottom: 0px;
+    text-align: center;
+    padding: 15px 25px 0 0;
 }
 
 #ct_score {
