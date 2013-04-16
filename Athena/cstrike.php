@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Counter-Strike: Source - Match Scoreboard</title>
-  <link rel="stylesheet" type="text/css" href="score-style.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
   <script type="text/javascript">
@@ -21,22 +21,23 @@
   $gCounter_ct  = 0;
   $gCounter_t   = 0;
 
-  $CounterTerrorists=array();
-  $Terrorists=array();
+  $CounterTerrorists = array();
+  $Terrorists = array();
 
   while (!feof($log))
   {
     $line = fgets($log);
 
-    // Filter out Counter-Terrorist team score
+    // Filter Counter-Terrorist team score
     if (preg_match("/COUNTERTERRORIST (.*)/", $line, $matches))
     {
       $is_ct    = 1;
       $ct_score = $matches[1];
     }
 
-    // Filter out Terrorist team score
+    // Filter Terrorist team score
     elseif (preg_match("/TERRORIST (.*)/", $line, $matches))
+    {
       $is_ct    = 0;
       $t_score  = $matches[1];
     }
@@ -52,13 +53,15 @@
       // Fill array containing each player's score
       if (empty($line)) break;
       $split  = explode(",",$line);
+
       $nick   = $split[0];
       $kills  = $split[1];
       $deaths = $split[2];
+
       if ($is_ct)
-        $CounterTerrorists[$gCounter_ct++]=array($nick,$kills,$deaths);
+        $CounterTerrorists[$gCounter_ct++] = array($nick,$kills,$deaths);
       else
-        $Terrorists[$gCounter_t++]=array($nick,$kills,$deaths);
+        $Terrorists[$gCounter_t++] = array($nick,$kills,$deaths);
     }
   }
   fclose($log);
@@ -78,7 +81,7 @@
   foreach ($CounterTerrorists as $ct)
   {
     printf("\t<tr>\n");
-    printf("\t<td>%s</td><td>%d</td><td>%d</td>\n",$ct[0],$ct[1],$ct[2]);
+    printf("\t\t<td>%s</td><td>%d</td><td>%d</td>\n", $ct[0], $ct[1], $ct[2]);
     printf("\t</tr>\n");
   }
   ?>
@@ -99,7 +102,7 @@
   foreach ($Terrorists as $t)
   {
     printf("\t<tr>\n");
-    printf("\t<td>%s</td><td>%d</td><td>%d</td>\n",$t[0],$t[1],$t[2]);
+    printf("\t\t<td>%s</td><td>%d</td><td>%d</td>\n", $t[0], $t[1], $t[2]);
     printf("\t</tr>\n");
   }
   ?>
