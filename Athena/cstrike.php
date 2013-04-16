@@ -81,7 +81,7 @@
   foreach ($CounterTerrorists as $ct)
   {
     printf("\t<tr>\n");
-    printf("\t\t<td>%s</td><td>%d</td><td>%d</td>\n", $ct[0], $ct[1], $ct[2]);
+    printf("\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t\t<td>%d</td>\n", $ct[0], $ct[1], $ct[2]);
     printf("\t</tr>\n");
   }
   ?>
@@ -102,7 +102,7 @@
   foreach ($Terrorists as $t)
   {
     printf("\t<tr>\n");
-    printf("\t\t<td>%s</td><td>%d</td><td>%d</td>\n", $t[0], $t[1], $t[2]);
+    printf("\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t\t<td>%d</td>\n", $t[0], $t[1], $t[2]);
     printf("\t</tr>\n");
   }
   ?>
