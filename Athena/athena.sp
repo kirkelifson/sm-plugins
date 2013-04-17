@@ -23,7 +23,7 @@ public OnPluginStart()
 
 public updateScores(counterscore,terrscore){
     // Place match.log relative to /cstrike/
-    new String:filename[10] = "/match.log";
+    new String:filename[10] = "match.log";
 
     // Temporary string buffer used to format log strings
     new String:temp[255] = "";
