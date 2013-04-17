@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Counter-Strike: Source - Match Scoreboard</title>
-  <link rel="stylesheet" type="text/css" href="style.css" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Counter-Strike: Source - Match Scoreboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-  <script type="text/javascript">
   <!-- Refresh page every 5 seconds to reflect (almost) live score -->
-  setTimeout('window.location.href=window.location.href;', 5000);
+  <script type="text/javascript">
+      setTimeout('window.location.href=window.location.href;', 5000);
   </script>
+
   <?
   // path to match.log
-  $file = "/opt/HLDS/css/css/cstrike/match.log";
-  $log  = fopen($file, 'r') or die("FILE READ ERROR");
-  $ct_score = 0;
-  $t_score  = 0;
+  $file = "/home/xtc/steam/css/css/cstrike/match.log";
+  $log  = fopen($file, "r") or exit("FILE READ ERROR");
 
-  $is_ct  = 0;
-
-  $gCounter_ct  = 0;
-  $gCounter_t   = 0;
+  $ct_score    = 0;
+  $t_score     = 0;
+  $ct_counter  = 0;
+  $t_counter   = 0;
+  $is_ct       = 0;
 
   $CounterTerrorists = array();
-  $Terrorists = array();
+  $Terrorists        = array();
 
   while (!feof($log))
   {
@@ -53,16 +53,16 @@
     {
       // Fill array containing each player's score
       if (empty($line)) break;
-      $split  = explode(",",$line);
+      $split  = explode(",", $line);
 
       $nick   = $split[0];
       $kills  = $split[1];
       $deaths = $split[2];
 
       if ($is_ct)
-        $CounterTerrorists[$gCounter_ct++] = array($nick,$kills,$deaths);
+        $CounterTerrorists[$ct_counter++] = array($nick, $kills, $deaths);
       else
-        $Terrorists[$gCounter_t++] = array($nick,$kills,$deaths);
+        $Terrorists[$t_counter++] = array($nick, $kills, $deaths);
     }
   }
   fclose($log);
@@ -70,7 +70,7 @@
   <table>
   <tr>
     <td><em>Counter-Terrorists</em></td>
-    <td id="ct_score"><? echo $ct_score ?></td>
+    <td id="ct_score"><? echo $ct_score; ?></td>
   </tr>
   <tr>
     <td>Player</td>
@@ -91,7 +91,7 @@
   </tr>
   <tr>
     <td><em>Terrorists</em></td>
-    <td id="t_score"><? echo $t_score ?></td>
+    <td id="t_score"><? echo $t_score; ?></td>
   </tr>
   <tr>
     <td>Player</td>
@@ -103,7 +103,9 @@
   foreach ($Terrorists as $t)
   {
     printf("\t<tr>\n");
-    printf("\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t\t<td>%d</td>\n", $t[0], $t[1], $t[2]);
+    printf("\t\t<td>%s</td>\n", $t[0]);
+    printf("\t\t<td>%d</td>\n", $t[1]);
+    printf("\t\t<td>%d</td>\n", $t[2]);
     printf("\t</tr>\n");
   }
   ?>
