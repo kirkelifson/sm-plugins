@@ -6,109 +6,54 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-  <!-- Refresh page every 5 seconds to reflect (almost) live score -->
-  <script type="text/javascript">
-      setTimeout('window.location.href=window.location.href;', 5000);
-  </script>
+    <!-- Refresh page every 5 seconds to reflect (almost) live score -->
+    <script type="text/javascript">
+        setTimeout('window.location.href=window.location.href;', 5000);
+    </script>
 
-  <?
-  // path to match.log
-  $file = "/home/xtc/steam/css/css/cstrike/match.log";
-  $log  = fopen($file, "r") or exit("FILE READ ERROR");
+    <?
+        include("parser.php");
 
-  $ct_score    = 0;
-  $t_score     = 0;
-  $ct_counter  = 0;
-  $t_counter   = 0;
-  $is_ct       = 0;
+        // absolute path structure to match.log
+        // ** must have trailing forward-slash **
+        $path = "/home/xtc/steam/css/css/cstrike/";
+        $file = "match.log";
 
-  $CounterTerrorists = array();
-  $Terrorists        = array();
+        $parser = new Parser();
+        $parser->read_file($path.$file);
+    ?>
 
-  while (!feof($log))
-  {
-    $line = fgets($log);
+    <table>
+        <tr>
+            <td><em>Counter-Terrorists</em></td>
+            <td id="ct_score"><? echo $parser->ct_score; ?></td>
+        </tr>
 
-    // Filter Counter-Terrorist team score
-    if (preg_match("/COUNTERTERRORIST (.*)/", $line, $matches))
-    {
-      $is_ct    = 1;
-      $ct_score = $matches[1];
-    }
+        <tr>
+            <td>Player</td>
+            <td>Kills</td>
+            <td>Deaths</td>
+        </tr>
 
-    // Filter Terrorist team score
-    elseif (preg_match("/TERRORIST (.*)/", $line, $matches))
-    {
-      $is_ct    = 0;
-      $t_score  = $matches[1];
-    }
+        <? $parser->print_ctscore(); ?>
 
-    /* 
-     * If team score line isn't detected it's a player score:
-     *  1. Check flag to note which team player belongs to
-     *  2. Split buffer into chunks based on name, kills, & deaths
-     *  3. Add to team roster array
-     */
-    else
-    {
-      // Fill array containing each player's score
-      if (empty($line)) break;
-      $split  = explode(",", $line);
+        <tr>
+            <td height="50px"></td>
+        </tr>
 
-      $nick   = $split[0];
-      $kills  = $split[1];
-      $deaths = $split[2];
+        <tr>
+            <td><em>Terrorists</em></td>
+            <td id="t_score"><? echo $parser->t_score; ?></td>
+        </tr>
 
-      if ($is_ct)
-        $CounterTerrorists[$ct_counter++] = array($nick, $kills, $deaths);
-      else
-        $Terrorists[$t_counter++] = array($nick, $kills, $deaths);
-    }
-  }
-  fclose($log);
-  ?>
-  <table>
-  <tr>
-    <td><em>Counter-Terrorists</em></td>
-    <td id="ct_score"><? echo $ct_score; ?></td>
-  </tr>
-  <tr>
-    <td>Player</td>
-    <td>Kills</td>
-    <td>Deaths</td>
-  </tr>
-  <?
-  // Print Counter-Terrorist team score + player scores
-  foreach ($CounterTerrorists as $ct)
-  {
-    printf("\t<tr>\n");
-    printf("\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t\t<td>%d</td>\n", $ct[0], $ct[1], $ct[2]);
-    printf("\t</tr>\n");
-  }
-  ?>
-  <tr>
-    <td height="50px"></td>
-  </tr>
-  <tr>
-    <td><em>Terrorists</em></td>
-    <td id="t_score"><? echo $t_score; ?></td>
-  </tr>
-  <tr>
-    <td>Player</td>
-    <td>Kills</td>
-    <td>Deaths</td>
-  </tr>
-  <?
-  // Print Terrorist team score + player scores
-  foreach ($Terrorists as $t)
-  {
-    printf("\t<tr>\n");
-    printf("\t\t<td>%s</td>\n", $t[0]);
-    printf("\t\t<td>%d</td>\n", $t[1]);
-    printf("\t\t<td>%d</td>\n", $t[2]);
-    printf("\t</tr>\n");
-  }
-  ?>
-  </table>
+        <tr>
+            <td>Player</td>
+            <td>Kills</td>
+            <td>Deaths</td>
+        </tr>
+
+        <? $parser->print_tscore(); ?>
+
+    </table>
 </body>
 </html>
