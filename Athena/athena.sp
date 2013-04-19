@@ -17,11 +17,12 @@ public Plugin:myinfo =
 
 public OnPluginStart()
 {
+    HookEvent("round_start", Event_Round_Start);
     HookEvent("round_end", Event_Round_End);
     HookEvent("player_death", Event_Player_Death);
 }
 
-public updateScores(counterscore,terrscore){
+public updateScores(counterscore, terrscore){
     // Place match.log relative to /cstrike/
     new String:filename[10] = "match.log";
 
@@ -85,6 +86,10 @@ public Action:Event_Round_End(Handle:event, const String:name[], bool:dontBroadc
 
 public Action:Event_Player_Death(Handle:event, const String:name[], bool:dontBroadcast)
 {
-    updateScores(GetTeamScore(3),GetTeamScore(2));
+    updateScores(GetTeamScore(3), GetTeamScore(2));
 }
 
+public Action:Event_Round_Start(Handle:event, const String:name[], bool:dontBroadcast)
+{
+    updateScores(GetTeamScore(3), GetTeamScore(2));
+}
