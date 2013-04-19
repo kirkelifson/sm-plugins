@@ -79,17 +79,17 @@ public updateScores(counterscore, terrscore){
     CloseHandle(fout);
 }
 
+public Action:Event_Round_Start(Handle:event, const String:name[], bool:dontBroadcast)
+{
+    updateScores(GetTeamScore(3), GetTeamScore(2));
+}
+
 public Action:Event_Round_End(Handle:event, const String:name[], bool:dontBroadcast)
 {
     updateScores(GetTeamScore(3), GetTeamScore(2));
 }
 
 public Action:Event_Player_Death(Handle:event, const String:name[], bool:dontBroadcast)
-{
-    updateScores(GetTeamScore(3), GetTeamScore(2));
-}
-
-public Action:Event_Round_Start(Handle:event, const String:name[], bool:dontBroadcast)
 {
     updateScores(GetTeamScore(3), GetTeamScore(2));
 }
